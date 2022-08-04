@@ -12,12 +12,14 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 const Home = () => {
   return (
     <div className={style.home}>
-      <div className={style.blur}>
-        <Header />
-        <h1 className={style.title}>FIND YOUR MOVIE</h1>
-        <div className={style.searchArea}>
-          <SearchBar />
-          <Button className={style.searchButton} text="SEARCH" />
+      <div className={style.container}>
+        <div className={style.blur}>
+          <Header />
+          <h1 className={style.title}>FIND YOUR MOVIE</h1>
+          <div className={style.searchArea}>
+            <SearchBar />
+            <Button className={style.searchButton} text="SEARCH" />
+          </div>
         </div>
       </div>
       <div className={style.main}>

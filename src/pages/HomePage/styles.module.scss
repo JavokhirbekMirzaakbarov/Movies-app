@@ -4,17 +4,20 @@ body {
 }
 
 .home {
-  background-image: url("../../asset/images/image.png");
   width: 100%;
-  min-height: 100vh;
-  background-repeat: no-repeat;
-  object-fit: contain;
-  backdrop-filter: blur(5px);
   background-color: #232323;
 }
 
+.container {
+  position: relative;
+  background-image: url("../../asset//images/image.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
 .blur {
-  background: rgba(100, 100, 100, 0.1);
+  background-color: rgba(100, 100, 100, 0.1);
   backdrop-filter: blur(8px);
   height: 400px;
   width: 100%;

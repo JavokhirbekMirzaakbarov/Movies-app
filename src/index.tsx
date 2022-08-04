@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import style from "./styles.module.scss";
+import Home from "./pages/HomePage";
+// import style from "./styles.module.scss";
 
 const App = () => {
-  return <h1 className={style.button}>Hello World!</h1>;
+  return <Home />;
 };
 
 const root = ReactDOM.createRoot(

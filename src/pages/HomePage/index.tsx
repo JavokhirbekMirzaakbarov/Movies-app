@@ -7,6 +7,7 @@ import MoviesList from "../../components/MoviesList";
 import SearchBar from "../../components/SearchBar";
 import style from "./styles.module.scss";
 import { movies } from "../../mockData";
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 const Home = () => {
   return (
@@ -22,7 +23,9 @@ const Home = () => {
       <div className={style.main}>
         <FiltersTab />
       </div>
-      <MoviesList movies={movies} />
+      <ErrorBoundary>
+        <MoviesList movies={movies} />
+      </ErrorBoundary>
       <Footer />
     </div>
   );

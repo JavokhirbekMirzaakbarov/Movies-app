@@ -5,7 +5,7 @@ const SearchBar = () => {
   return (
     <input
       className={style.searchBar}
-      placeholder=" What do you want to watch?"
+      placeholder="What do you want to watch?"
     />
   );
 };

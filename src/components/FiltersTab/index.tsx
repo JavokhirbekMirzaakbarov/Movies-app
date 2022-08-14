@@ -7,15 +7,15 @@ const FiltersTab = () => {
     <>
       <div className={style.filters}>
         <div className={style.categories}>
-          <Button className={style.button} text="ALL" />
-          <Button className={style.button} text="DOCUMENTARY" />
-          <Button className={style.button} text="COMEDY" />
-          <Button className={style.button} text="HORROR" />
-          <Button className={style.button} text="CRIME" />
+          <Button className={style.button} text="all" />
+          <Button className={style.button} text="documentary" />
+          <Button className={style.button} text="comedy" />
+          <Button className={style.button} text="horroe" />
+          <Button className={style.button} text="crime" />
         </div>
         <div className="sorts">
-          <Button className={style.sortByButton} text="SORT BY" />
-          <Button className={style.sortOptions} text="RELEASE DATE" />
+          <Button className={style.sortByButton} text="sort by" />
+          <Button className={style.sortOptions} text="release date" />
         </div>
       </div>
       <hr />

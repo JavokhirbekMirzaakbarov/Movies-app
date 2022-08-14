@@ -4,3 +4,8 @@ export type Movie = {
   Year: string;
   Poster?: string;
 };
+
+export type ButtonProps = {
+  text: string;
+  className?: string;
+};

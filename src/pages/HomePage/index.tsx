@@ -18,7 +18,7 @@ const Home = () => {
           <h1 className={style.title}>FIND YOUR MOVIE</h1>
           <div className={style.searchArea}>
             <SearchBar />
-            <Button className={style.searchButton} text="SEARCH" />
+            <Button className={style.searchButton} text="search" />
           </div>
         </div>
       </div>

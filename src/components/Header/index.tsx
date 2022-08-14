@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <>
       <Logo />
-      <Button text="+ADD MOVIE" className={style.button} />
+      <Button text="+add movie" className={style.button} />
     </>
   );
 }

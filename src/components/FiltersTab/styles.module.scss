@@ -14,9 +14,10 @@
 
   .button:focus {
     border-bottom: 2px solid #f65261;
+    cursor: pointer;
   }
 
-  .button:first-child {
+  .button-border {
     border-bottom: 2px solid #f65261;
   }
 

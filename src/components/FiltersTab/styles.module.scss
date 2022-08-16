@@ -1,0 +1,39 @@
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .button {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    margin: 0px;
+    color: white;
+  }
+
+  .button:focus {
+    border-bottom: 2px solid #f65261;
+    cursor: pointer;
+  }
+
+  .button-border {
+    border-bottom: 2px solid #f65261;
+  }
+
+  .sortByButton {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    margin: 0px;
+    color: #808080;
+  }
+
+  .sortOptions {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    margin: 0px;
+    color: white;
+  }
+}

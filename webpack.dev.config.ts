@@ -42,6 +42,10 @@ const config: Configuration = {
           { loader: "sass-loader" },
         ],
       },
+      {
+        test: /\.png/,
+        type: "asset/resource",
+      },
     ],
   },
   resolve: {

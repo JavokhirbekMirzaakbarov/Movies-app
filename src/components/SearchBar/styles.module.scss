@@ -1,0 +1,15 @@
+.searchBar {
+  background-color: rgba(150, 150, 150, 0.4);
+  width: 700px;
+  height: 52px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  display: inline-block;
+  outline: none;
+  font-size: large;
+
+  &::placeholder {
+    color: lightgray;
+  }
+}

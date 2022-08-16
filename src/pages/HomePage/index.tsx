@@ -16,7 +16,7 @@ class Home extends React.Component {
         <div className={style.container}>
           <div className={style.blur}>
             <Header />
-            <h1 className={style.title}>FIND YOUR MOVIE</h1>
+            <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
             <div className={style.searchArea}>
               <SearchBar />
               <Button className={style.searchButton} text="search" />

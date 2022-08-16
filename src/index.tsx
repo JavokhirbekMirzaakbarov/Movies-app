@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import Home from "./pages/HomePage";
 // import style from "./styles.module.scss";
 
-const App = () => {
-  return <Home />;
-};
+class App extends React.Component {
+  render() {
+    return <Home />;
+  }
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

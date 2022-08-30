@@ -36,19 +36,27 @@ body {
 .searchButton {
   background-color: #f65261;
   color: #fff;
-  width: 230px;
+  min-width: 200px;
   height: 54px;
   border: none;
   border-radius: 2px;
   font-size: 1.3em;
   margin-left: 15px;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: #f65261;
+  }
 }
 
 .searchArea {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .main {

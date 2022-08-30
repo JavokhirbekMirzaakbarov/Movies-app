@@ -1,0 +1,30 @@
+.navbar {
+  width: 100%;
+  min-height: 60px;
+  background-color: #232323;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  color: #f65261;
+  background-color: #232323;
+  border: 1px solid #f65261;
+  font-weight: bold;
+  font-family: "SourceSansPro";
+  font-size: 1.2em;
+  margin-right: 5px;
+
+  &:hover {
+    background-color: #424242;
+  }
+}
+
+.logoImage {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}

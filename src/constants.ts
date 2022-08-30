@@ -8,4 +8,5 @@ export type Movie = {
 export type ButtonProps = {
   text: string;
   className?: string;
+  onClick?: () => void;
 };

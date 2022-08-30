@@ -1,24 +1,6 @@
-.movieCard {
-  width: 320px;
-  height: 470px;
+.card {
+  width: 345px;
   margin: 10px;
+  background-color: #232323;
   color: white;
-
-  img {
-    width: 100%;
-    height: 400px;
-  }
-
-  button {
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-  }
-
-  .info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 5px;
-  }
 }

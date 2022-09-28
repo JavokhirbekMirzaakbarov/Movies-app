@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { flushSync } from "react-dom";
 import FiltersTab from "../../components/FiltersTab";
@@ -109,8 +110,8 @@ class Home extends React.Component<
         <Modal
           open={this.state.isOpen}
           onClose={this.handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="add-movie-modal-title"
+          aria-describedby="add-movie-modal-description"
         >
           <Box className={style.modal}>
             <AddMovieModal />

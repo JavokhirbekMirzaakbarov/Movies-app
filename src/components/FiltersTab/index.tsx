@@ -6,9 +6,9 @@ import style from "./styles.module.scss";
 const sortByOptions = ["imdb rating", "release date", "duration"];
 class FiltersTab extends React.Component<
   {
-    setActiveTab: (value: string) => any;
+    setActiveTab: (value: string) => void;
     value: string;
-    setSortByOption: (value: string) => any;
+    setSortByOption: (value: string) => void;
   },
   unknown
 > {

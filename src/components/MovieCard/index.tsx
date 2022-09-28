@@ -13,7 +13,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Movie } from "../../constants";
 import style from "./styles.module.scss";
 
-class MovieCard extends React.Component<{ movie: Movie }> {
+class MovieCard extends React.Component<{
+  movie: Movie;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+}> {
   render() {
     return (
       <Card className={style.card}>
@@ -43,10 +47,16 @@ class MovieCard extends React.Component<{ movie: Movie }> {
           </Box>
         </CardContent>
         <CardActions>
-          <Button size="small">
+          <Button
+            onClick={() => this.props.onEdit(this.props.movie.imdbID)}
+            size="small"
+          >
             <EditIcon />
           </Button>
-          <Button size="small">
+          <Button
+            size="small"
+            onClick={() => this.props.onDelete(this.props.movie.imdbID)}
+          >
             <DeleteIcon />
           </Button>
         </CardActions>

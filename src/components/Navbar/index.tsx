@@ -5,7 +5,7 @@ import Logo from "../Logo";
 import style from "./styles.module.scss";
 
 interface NavbarProps {
-  openModal: () => any;
+  openModal: () => void;
 }
 class Navbar extends React.Component<NavbarProps> {
   constructor(props: NavbarProps) {

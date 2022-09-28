@@ -9,29 +9,50 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Movie } from "../../constants";
 import { genres } from "../../mockData";
 
-class AddMovieModal extends React.Component {
+class EditMovieModal extends React.Component<{ movie: Movie }> {
   render() {
     return (
       <Box>
-        <Typography id="add-movie-modal-title" variant="h2">
-          Add Movie
+        <Typography id="edit-movie-modal-title" variant="h2">
+          Edit Movie
         </Typography>
-        <Box id="add-movie-modal-description">
+        <Box id="edit-movie-modal-description">
           <Grid container spacing={2}>
             <Grid item xs={6} md={8}>
-              <TextField fullWidth label="Title" variant="outlined" />
+              <TextField
+                value={this.props.movie.title}
+                fullWidth
+                label="Title"
+                variant="outlined"
+              />
             </Grid>
             <Grid item xs={6} md={4}>
               <InputLabel htmlFor="date">Release Date</InputLabel>
-              <Input id="date" type="date" fullWidth />
+              <Input
+                value={this.props.movie.released}
+                id="date"
+                type="date"
+                fullWidth
+              />
             </Grid>
             <Grid item xs={6} md={8}>
-              <TextField fullWidth label="Movie URL" variant="outlined" />
+              <TextField
+                value={this.props.movie.website}
+                fullWidth
+                label="Movie URL"
+                variant="outlined"
+              />
             </Grid>
             <Grid item xs={6} md={4}>
-              <TextField fullWidth label="Rating" variant="outlined" />
+              <TextField
+                value={this.props.movie.imdbRating}
+                fullWidth
+                label="Rating"
+                variant="outlined"
+              />
             </Grid>
             <Grid item xs={6} md={8}>
               <TextField
@@ -40,6 +61,7 @@ class AddMovieModal extends React.Component {
                 select
                 label="Genre"
                 variant="outlined"
+                value={this.props.movie.genre}
               >
                 {genres.map((genre) => (
                   <MenuItem key={genre} value={genre}>
@@ -49,13 +71,19 @@ class AddMovieModal extends React.Component {
               </TextField>
             </Grid>
             <Grid item xs={6} md={4}>
-              <TextField fullWidth label="Runtime" variant="outlined" />
+              <TextField
+                value={this.props.movie.runtime}
+                fullWidth
+                label="Runtime"
+                variant="outlined"
+              />
             </Grid>
             <Grid item xs={12} md={12}>
               <TextField
                 fullWidth
                 multiline
                 minRows={3}
+                value={this.props.movie.actors}
                 label="Overview"
                 variant="outlined"
                 placeholder="Movie Description"
@@ -76,4 +104,4 @@ class AddMovieModal extends React.Component {
   }
 }
 
-export default AddMovieModal;
+export default EditMovieModal;

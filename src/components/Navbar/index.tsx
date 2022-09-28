@@ -4,12 +4,20 @@ import Button from "@mui/material/Button";
 import Logo from "../Logo";
 import style from "./styles.module.scss";
 
-class Navbar extends React.Component {
+interface NavbarProps {
+  openModal: () => any;
+}
+class Navbar extends React.Component<NavbarProps> {
+  constructor(props: NavbarProps) {
+    super(props);
+  }
   render() {
     return (
       <Box className={style.navbar}>
         <Logo />
-        <Button className={style.button}>+ADD MOVIE</Button>
+        <Button onClick={() => this.props.openModal()} className={style.button}>
+          +ADD MOVIE
+        </Button>
       </Box>
     );
   }

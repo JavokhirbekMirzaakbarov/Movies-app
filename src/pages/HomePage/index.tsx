@@ -65,7 +65,7 @@ class Home extends React.Component<
 
   sortByRating = (movies: Movie[]) => {
     this.setState({
-      movies: movies.sort((a, b) => +b.imdbRating - Number(a.imdbRating)),
+      movies: movies.sort((a, b) => +b.imdbRating - +a.imdbRating),
     });
   };
 

@@ -14,7 +14,7 @@ class DeleteMovieModal extends React.Component {
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button sx={{ margin: "10px" }} size="large" variant="contained">
-              CONFIRM
+              Confirm
             </Button>
           </Box>
         </Box>

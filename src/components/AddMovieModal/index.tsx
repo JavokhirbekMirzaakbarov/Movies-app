@@ -64,10 +64,10 @@ class AddMovieModal extends React.Component {
           </Grid>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button sx={{ margin: "10px" }} size="large" variant="contained">
-              SUBMIT
+              Submit
             </Button>
             <Button sx={{ margin: "10px" }} size="large" variant="outlined">
-              RESET
+              Reset
             </Button>
           </Box>
         </Box>

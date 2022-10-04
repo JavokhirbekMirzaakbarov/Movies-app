@@ -1,39 +1,54 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { genres } from "../../mockData";
 import style from "./styles.module.scss";
 
-class FiltersTab extends React.Component<unknown, { activeTab: number }> {
+const sortByOptions = ["imdb rating", "release date", "duration"];
+class FiltersTab extends React.Component<
+  {
+    setActiveTab: (value: string) => void;
+    value: string;
+    setSortByOption: (value: string) => void;
+  },
+  unknown
+> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(props: any) {
-    super(props);
-    this.state = { activeTab: 0 };
-  }
 
-  handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    this.setState({ activeTab: newValue });
-    console.log(newValue);
+  handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    this.props.setActiveTab(newValue);
+  };
+
+  handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.props.setSortByOption(event.target.value);
   };
 
   render() {
     return (
       <Box className={style.filters}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={this.state.activeTab}
-            onChange={this.handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab className={style.tab} label="ALL" />
-            <Tab className={style.tab} label="DOCUMENTARY" />
-            <Tab className={style.tab} label="HORROR" />
-            <Tab className={style.tab} label="CRIME" />
+          <Tabs value={this.props.value} onChange={this.handleChange}>
+            <Tab value="" className={style.tab} label="all" />
+            {genres.map((genre: string) => (
+              <Tab
+                value={genre}
+                key={genre}
+                className={style.tab}
+                label={genre}
+              />
+            ))}
           </Tabs>
         </Box>
         <Box className={style.sortBy}>
           <Typography className={style.sortByText}>SORT BY</Typography>
-          <select className={style.sortByOption}>
-            <option value="MOST POPULAR">MOST POPULAR</option>
-            <option value="RELEASE DATE">RELEASE DATE</option>
+          <select
+            onChange={this.handleSortByChange}
+            className={style.sortByOption}
+          >
+            {sortByOptions.map((option: string) => (
+              <option key={option} value={option}>
+                {option.toUpperCase()}
+              </option>
+            ))}
           </select>
         </Box>
       </Box>

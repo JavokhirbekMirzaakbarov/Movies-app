@@ -5,12 +5,19 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Box,
 } from "@mui/material";
 import React from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Movie } from "../../constants";
 import style from "./styles.module.scss";
 
-class MovieCard extends React.Component<{ movie: Movie }> {
+class MovieCard extends React.Component<{
+  movie: Movie;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+}> {
   render() {
     return (
       <Card className={style.card}>
@@ -18,17 +25,40 @@ class MovieCard extends React.Component<{ movie: Movie }> {
           component="img"
           alt="green iguana"
           height="280"
-          image={this.props.movie.Poster}
+          image={this.props.movie.poster}
         />
         <CardContent>
-          <Typography gutterBottom component="div">
-            {this.props.movie.Title}
+          <Typography sx={{ color: "#f65261" }} gutterBottom variant="h5">
+            {this.props.movie.title}
           </Typography>
-          <Typography variant="body2">{this.props.movie.Year}</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2">{this.props.movie.released}</Typography>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {this.props.movie.language.slice(0, 3).toLocaleUpperCase()}
+            </Typography>
+            <Typography>{this.props.movie.imdbRating}</Typography>
+            <Typography>{this.props.movie.runtime}</Typography>
+          </Box>
         </CardContent>
         <CardActions>
-          <Button size="small">EDIT</Button>
-          <Button size="small">DELETE</Button>
+          <Button
+            onClick={() => this.props.onEdit(this.props.movie.imdbID)}
+            size="small"
+          >
+            <EditIcon />
+          </Button>
+          <Button
+            size="small"
+            onClick={() => this.props.onDelete(this.props.movie.imdbID)}
+          >
+            <DeleteIcon />
+          </Button>
         </CardActions>
       </Card>
     );

@@ -63,3 +63,14 @@ body {
   width: 90%;
   margin: 0 auto;
 }
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  min-height: 60vh;
+  background-color: white;
+  padding: 16px 32px 24px;
+}

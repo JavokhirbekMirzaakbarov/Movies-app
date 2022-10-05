@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import { flushSync } from "react-dom";
+import React, { useState, useEffect } from "react";
 import FiltersTab from "../../components/FiltersTab";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import MoviesList from "../../components/MoviesList";
 import SearchBar from "../../components/SearchBar";
-import { movies } from "../../mockData";
+import { movies as allMovies } from "../../mockData";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
@@ -15,115 +14,80 @@ import AddMovieModal from "../../components/AddMovieModal";
 import { Movie } from "../../constants";
 import style from "./styles.module.scss";
 
-class Home extends React.Component<
-  any,
-  { isOpen: boolean; activeTab: string; movies: Movie[]; sortOption: string }
-> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      activeTab: "",
-      movies: movies,
-      sortOption: "",
-    };
-  }
+const Home = () => {
+  const [isOpen, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("");
+  const [movies, setMovies] = useState<Movie[]>(allMovies);
+  const [sortByOption, setSortByOption] = useState("");
 
-  componentDidMount(): void {
-    this.sortByGenre();
-  }
+  useEffect(() => {
+    sortByGenre();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, sortByOption]);
 
-  handleOpen = () => this.setState({ isOpen: true });
+  const handleOpen = () => setOpen(true);
 
-  handleClose = () => this.setState({ isOpen: false });
+  const handleClose = () => setOpen(false);
 
-  setActiveTab = (activeTab: string) => {
-    flushSync(() => {
-      this.setState({ activeTab });
-    });
-
-    this.sortByGenre();
-  };
-
-  setSortByOption = (option: string) => {
-    flushSync(() => {
-      this.setState({ sortOption: option });
-    });
-
-    this.sortByGenre();
-  };
-
-  sortByGenre = () => {
-    const sortedMovies = movies.filter((movie) =>
-      movie.genre.toLowerCase().includes(this.state.activeTab.toLowerCase())
+  const sortByGenre = () => {
+    const sortedMovies = allMovies.filter((movie) =>
+      movie.genre.toLowerCase().includes(activeTab.toLowerCase())
     );
-    if (this.state.sortOption === "release date") this.sortByDate(sortedMovies);
-    else if (this.state.sortOption === "duration")
-      this.sortByDuration(sortedMovies);
-    else this.sortByRating(sortedMovies);
+    if (sortByOption === "release date") sortByDate(sortedMovies);
+    else if (sortByOption === "duration") sortByDuration(sortedMovies);
+    else sortByRating(sortedMovies);
   };
 
-  sortByRating = (movies: Movie[]) => {
-    this.setState({
-      movies: movies.sort((a, b) => +b.imdbRating - +a.imdbRating),
-    });
-  };
+  const sortByRating = (movies: Movie[]) =>
+    setMovies(movies.sort((a, b) => +b.imdbRating - +a.imdbRating));
 
-  sortByDuration = (movies: Movie[]) => {
-    this.setState({
-      movies: movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime)),
-    });
-  };
+  const sortByDuration = (movies: Movie[]) =>
+    setMovies(movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime)));
 
-  sortByDate = (movies: Movie[]) => {
-    this.setState({
-      movies: movies.sort(
-        (a, b) => +new Date(b.released) - +new Date(a.released)
-      ),
-    });
-  };
+  const sortByDate = (movies: Movie[]) =>
+    setMovies(
+      movies.sort((a, b) => +new Date(b.released) - +new Date(a.released))
+    );
 
-  render() {
-    return (
-      <div className={style.home}>
-        <Navbar openModal={this.handleOpen} />
-        <div className={style.container}>
-          <div className={style.blur}>
-            <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
-            <div className={style.searchArea}>
-              <Box sx={{ minWidth: "60%" }}>
-                <SearchBar />
-              </Box>
-              <Button className={style.searchButton}>SEARCH</Button>
-            </div>
+  return (
+    <div className={style.home}>
+      <Navbar openModal={handleOpen} />
+      <div className={style.container}>
+        <div className={style.blur}>
+          <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
+          <div className={style.searchArea}>
+            <Box sx={{ minWidth: "60%" }}>
+              <SearchBar />
+            </Box>
+            <Button className={style.searchButton}>SEARCH</Button>
           </div>
         </div>
-        <Box className={style.main}>
-          {
-            <FiltersTab
-              setActiveTab={this.setActiveTab}
-              setSortByOption={this.setSortByOption}
-              value={this.state.activeTab}
-            />
-          }
-        </Box>
-        <Modal
-          open={this.state.isOpen}
-          onClose={this.handleClose}
-          aria-labelledby="add-movie-modal-title"
-          aria-describedby="add-movie-modal-description"
-        >
-          <Box className={style.modal}>
-            <AddMovieModal />
-          </Box>
-        </Modal>
-        <ErrorBoundary>
-          <MoviesList movies={this.state.movies} />
-        </ErrorBoundary>
-        <Footer />
       </div>
-    );
-  }
-}
+      <Box className={style.main}>
+        {
+          <FiltersTab
+            setActiveTab={setActiveTab}
+            setSortByOption={setSortByOption}
+            value={activeTab}
+          />
+        }
+      </Box>
+      <Modal
+        open={isOpen}
+        onClose={handleClose}
+        aria-labelledby="add-movie-modal-title"
+        aria-describedby="add-movie-modal-description"
+      >
+        <Box className={style.modal}>
+          <AddMovieModal />
+        </Box>
+      </Modal>
+      <ErrorBoundary>
+        <MoviesList movies={movies} />
+      </ErrorBoundary>
+      <Footer />
+    </div>
+  );
+};
 
 export default Home;

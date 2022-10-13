@@ -3,13 +3,14 @@ import { Movie } from "../../constants";
 import MovieCard from "../MovieCard";
 import { Modal, Box } from "@mui/material";
 import EditMovieModal from "../EditMovieModal";
-import style from "./styles.module.scss";
 import DeleteMovieModal from "../DeleteMovieModal";
+import style from "./styles.module.scss";
 
 interface MoviesListProps {
   movies: Movie[];
+  onClick: (id: string) => void;
 }
-const MoviesList: React.FC<MoviesListProps> = ({ movies }) => {
+const MoviesList: React.FC<MoviesListProps> = ({ movies, onClick }) => {
   const [isEditOpen, setEditOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [movie, setMovie] = useState({} as Movie);
@@ -39,6 +40,7 @@ const MoviesList: React.FC<MoviesListProps> = ({ movies }) => {
           <MovieCard
             onDelete={onDelete}
             onEdit={onEdit}
+            onClick={onClick}
             key={movie.imdbID}
             movie={movie}
           />

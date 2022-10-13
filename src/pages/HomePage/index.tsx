@@ -1,24 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import FiltersTab from "../../components/FiltersTab";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import MoviesList from "../../components/MoviesList";
-import SearchBar from "../../components/SearchBar";
-import { movies as allMovies } from "../../mockData";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
 import { Modal } from "@mui/material";
 import AddMovieModal from "../../components/AddMovieModal";
 import { Movie } from "../../constants";
+import Header from "../../components/Header";
+import MovieDetails from "../../components/MovieDetails";
+import useMovies from "../../hooks/useMovies";
 import style from "./styles.module.scss";
 
 const Home = () => {
   const [isOpen, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+  const allMovies = useMovies();
   const [movies, setMovies] = useState<Movie[]>(allMovies);
   const [sortByOption, setSortByOption] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState({} as Movie);
 
   useEffect(() => {
     sortByGenre();
@@ -38,31 +42,46 @@ const Home = () => {
     else sortByRating(sortedMovies);
   };
 
-  const sortByRating = (movies: Movie[]) =>
-    setMovies(movies.sort((a, b) => +b.imdbRating - +a.imdbRating));
+  const sortByRating = useCallback(
+    (movies: Movie[]) =>
+      setMovies(movies.sort((a, b) => +b.imdbRating - +a.imdbRating)),
+    [sortByOption]
+  );
 
-  const sortByDuration = (movies: Movie[]) =>
-    setMovies(movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime)));
+  const sortByDuration = useCallback(
+    (movies: Movie[]) =>
+      setMovies(
+        movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime))
+      ),
+    [sortByOption]
+  );
 
-  const sortByDate = (movies: Movie[]) =>
-    setMovies(
-      movies.sort((a, b) => +new Date(b.released) - +new Date(a.released))
-    );
+  const sortByDate = useCallback(
+    (movies: Movie[]) =>
+      setMovies(
+        movies.sort((a, b) => +new Date(b.released) - +new Date(a.released))
+      ),
+    [sortByOption]
+  );
+
+  const onClick = (id: string) => {
+    const movie = movies.find((movie: Movie) => movie.imdbID === id);
+    if (movie) {
+      setSelectedMovie(movie);
+      setToggle(true);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className={style.home}>
-      <Navbar openModal={handleOpen} />
+      <Navbar toggle={setToggle} openModal={handleOpen} />
       <div className={style.container}>
         <div className={style.blur}>
-          <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
-          <div className={style.searchArea}>
-            <Box sx={{ minWidth: "60%" }}>
-              <SearchBar />
-            </Box>
-            <Button className={style.searchButton}>SEARCH</Button>
-          </div>
+          {!toggle ? <Header /> : <MovieDetails movie={selectedMovie} />}
         </div>
       </div>
+
       <Box className={style.main}>
         {
           <FiltersTab
@@ -83,7 +102,7 @@ const Home = () => {
         </Box>
       </Modal>
       <ErrorBoundary>
-        <MoviesList movies={movies} />
+        <MoviesList onClick={onClick} movies={movies} />
       </ErrorBoundary>
       <Footer />
     </div>

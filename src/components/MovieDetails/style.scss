@@ -1,0 +1,37 @@
+.container {
+  max-height: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.poster {
+  height: 390px;
+  margin: 10px;
+}
+
+.circle {
+  border: 2px solid white;
+  height: 100px;
+  border-radius: 50%;
+  width: 100px;
+  color: green;
+  margin: 2px;
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+.title {
+  color: #fff;
+}
+
+.description {
+  color: #bbb;
+}
+
+.duration {
+  color: #f65261;
+  font-size: 1.3em;
+}

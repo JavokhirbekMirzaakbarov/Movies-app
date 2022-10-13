@@ -17,11 +17,17 @@ interface MovieProps {
   movie: Movie;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  onClick: (id: string) => void;
 }
 
-const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
+const MovieCard: React.FC<MovieProps> = ({
+  movie,
+  onEdit,
+  onDelete,
+  onClick,
+}) => {
   return (
-    <Card className={style.card}>
+    <Card className={style.card} onClick={() => onClick(movie.imdbID)}>
       <CardMedia
         component="img"
         alt="green iguana"

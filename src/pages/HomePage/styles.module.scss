@@ -8,6 +8,11 @@ body {
   background-color: #232323;
 }
 
+.main {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .container {
   position: relative;
   background-image: url("../../asset//images/image.png");
@@ -25,43 +30,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.title {
-  color: #ffffff;
-  font-size: 3em;
-  font-weight: normal;
-}
-
-.searchButton {
-  background-color: #f65261;
-  color: #fff;
-  min-width: 200px;
-  height: 54px;
-  border: none;
-  border-radius: 2px;
-  font-size: 1.3em;
-  margin-left: 15px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-    background-color: #f65261;
-  }
-}
-
-.searchArea {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.main {
-  width: 90%;
-  margin: 0 auto;
 }
 
 .modal {

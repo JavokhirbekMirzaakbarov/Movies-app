@@ -22,7 +22,6 @@ const AddMovieModal = () => {
     const {
       target: { value },
     } = event;
-    console.log(value);
     setGenres(typeof value === "string" ? value.split(",") : value);
   };
 

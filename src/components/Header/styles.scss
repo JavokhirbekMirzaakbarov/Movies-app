@@ -1,3 +1,5 @@
+@import "../../style/index.scss";
+
 .title {
   color: #ffffff;
   font-size: 3em;
@@ -5,7 +7,7 @@
 }
 
 .searchButton {
-  background-color: #f65261;
+  background-color: $purpleColor;
   color: #fff;
   min-width: 200px;
   height: 54px;
@@ -17,7 +19,7 @@
 
   &:hover {
     opacity: 0.8;
-    background-color: #f65261;
+    background-color: $purpleColor;
   }
 }
 

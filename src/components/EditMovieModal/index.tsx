@@ -32,6 +32,7 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
 
     setGenres(typeof value === "string" ? value.split(",") : value);
   };
+
   return (
     <Box>
       <Typography id="edit-movie-modal-title" variant="h2">
@@ -75,7 +76,7 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
               onChange={handleChange}
               renderValue={(selectedGenres) => selectedGenres.join(", ")}
             >
-              <MenuItem disabled key={"genres"} value="">
+              <MenuItem disabled key={"edit-movie-genres"} value="">
                 <em>Genres</em>
               </MenuItem>
               {genres.map((genre) => (

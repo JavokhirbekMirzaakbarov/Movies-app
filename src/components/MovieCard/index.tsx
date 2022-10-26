@@ -26,6 +26,9 @@ const MovieCard: React.FC<MovieProps> = ({
   onDelete,
   onClick,
 }) => {
+  const formatMovieLanguage = (language: string) =>
+    language.slice(0, 3).toLocaleUpperCase();
+
   return (
     <Card className={style.card} onClick={() => onClick(movie.imdbID)}>
       <CardMedia
@@ -47,7 +50,7 @@ const MovieCard: React.FC<MovieProps> = ({
         >
           <Typography variant="body2">{movie.released}</Typography>
           <Typography sx={{ fontWeight: "bold" }}>
-            {movie.language.slice(0, 3).toLocaleUpperCase()}
+            {formatMovieLanguage(movie.language)}
           </Typography>
           <Typography>{movie.imdbRating}</Typography>
           <Typography>{movie.runtime}</Typography>

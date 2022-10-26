@@ -51,17 +51,16 @@ const AddMovieModal = () => {
               fullWidth
               value={selectedGenres}
               onChange={handleChange}
-              renderValue={(selectedGenres) => {
-                if (!selectedGenres.length) return "Genres";
-                else return selectedGenres.join(", ");
-              }}
+              renderValue={(selectedGenres) =>
+                !selectedGenres.length ? "Genres" : selectedGenres.join(", ")
+              }
             >
               <MenuItem disabled key={"genres"} value="">
                 <em>Genres</em>
               </MenuItem>
               {genres.map((genre) => (
                 <MenuItem key={genre} value={genre}>
-                  <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
+                  <Checkbox checked={selectedGenres.includes(genre)} />
                   <ListItemText primary={genre} />
                 </MenuItem>
               ))}

@@ -26,17 +26,17 @@ const Home = () => {
 
   useEffect(() => {
     sortByGenre();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, sortByOption]);
 
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
 
+  const isMovieGenreActive = (movie: Movie) =>
+    movie.genre.toLowerCase().includes(activeTab.toLowerCase());
+
   const sortByGenre = () => {
-    const sortedMovies = allMovies.filter((movie) =>
-      movie.genre.toLowerCase().includes(activeTab.toLowerCase())
-    );
+    const sortedMovies = allMovies.filter((movie) => isMovieGenreActive(movie));
     if (sortByOption === "release date") sortByDate(sortedMovies);
     else if (sortByOption === "duration") sortByDuration(sortedMovies);
     else sortByRating(sortedMovies);

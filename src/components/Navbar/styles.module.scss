@@ -1,7 +1,9 @@
+@import "../../style/index.scss";
+
 .navbar {
   width: 100%;
   min-height: 60px;
-  background-color: #232323;
+  background-color: $lightBlackColor;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -10,16 +12,16 @@
 }
 
 .button {
-  color: #f65261;
-  background-color: #232323;
-  border: 1px solid #f65261;
+  color: $purpleColor;
+  background-color: $lightBlackColor;
+  border: 1px solid $purpleColor;
   font-weight: bold;
   font-family: "SourceSansPro";
   font-size: 1.2em;
   margin-right: 5px;
 
   &:hover {
-    background-color: #424242;
+    background-color: $darkGreyColor;
   }
 }
 
@@ -27,4 +29,8 @@
   position: fixed;
   top: 10px;
   left: 10px;
+}
+
+.icon {
+  color: $purpleColor;
 }

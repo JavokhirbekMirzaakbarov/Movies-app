@@ -1,6 +1,8 @@
+@import "../../style/index.scss";
+
 .card {
   width: 345px;
   margin: 10px;
-  background-color: #232323;
+  background-color: $lightBlackColor;
   color: white;
 }

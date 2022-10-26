@@ -1,5 +1,7 @@
+@import "../../style/index.scss";
+
 .footer {
-  background-color: #424242;
+  background-color: $darkGreyColor;
   height: 50px;
   width: 100%;
   text-align: center;

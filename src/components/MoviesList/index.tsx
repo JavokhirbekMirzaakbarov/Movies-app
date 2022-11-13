@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Movie } from "../../constants";
 import MovieCard from "../MovieCard";
 import { Modal, Box } from "@mui/material";
@@ -6,17 +7,14 @@ import EditMovieModal from "../EditMovieModal";
 import DeleteMovieModal from "../DeleteMovieModal";
 import style from "./styles.module.scss";
 
-interface MoviesListProps {
-  movies: Movie[];
-  onClick: (id: string) => void;
-}
-const MoviesList: React.FC<MoviesListProps> = ({ movies, onClick }) => {
+const MoviesList: React.FC = () => {
   const [isEditOpen, setEditOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [movie, setMovie] = useState({} as Movie);
+  const movies = useSelector((state: any) => state.movies);
 
   const onEdit = (id: string) => {
-    const movie = movies.find((movie) => movie.imdbID === id);
+    const movie = movies.find((movie: any) => movie.id === id);
     if (movie) {
       setEditOpen(true);
       setMovie(movie);
@@ -24,7 +22,7 @@ const MoviesList: React.FC<MoviesListProps> = ({ movies, onClick }) => {
   };
 
   const onDelete = (id: string) => {
-    const movie = movies.find((movie) => movie.imdbID === id);
+    const movie = movies.find((movie: any) => movie.id === id);
     if (movie) setDeleteOpen(true);
   };
 
@@ -36,12 +34,12 @@ const MoviesList: React.FC<MoviesListProps> = ({ movies, onClick }) => {
   return (
     <>
       <div className={style.movies}>
-        {movies.map((movie) => (
+        {movies.map((movie: any) => (
           <MovieCard
             onDelete={onDelete}
             onEdit={onEdit}
-            onClick={onClick}
-            key={movie.imdbID}
+            // onClick={onClick}
+            key={movie.id}
             movie={movie}
           />
         ))}

@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/HomePage";
+import axios from "axios";
+import App from "./App";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
-const App = () => {
-  return <Home />;
-};
+axios.defaults.baseURL = "http://localhost:4000";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,8 +14,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <App />
-    </StyledEngineProvider>
+    <Provider store={store}>
+      <StyledEngineProvider injectFirst>
+        <App />
+      </StyledEngineProvider>
+    </Provider>
   </React.StrictMode>
 );

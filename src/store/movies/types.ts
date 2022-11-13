@@ -1,0 +1,1 @@
+export const SET_INITIAL_MOVIES = "movies/SET_INITIAL_MOVIES";

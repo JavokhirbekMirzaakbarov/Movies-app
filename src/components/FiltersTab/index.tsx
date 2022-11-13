@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
-import { genres } from "../../mockData";
 import style from "./styles.module.scss";
 
 const sortByOptions = ["imdb rating", "release date", "duration"];
@@ -28,14 +27,14 @@ const FiltersTab: React.FC<FiltersProps> = ({
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleGenreChange}>
           <Tab value="" className={style.tab} label="all" />
-          {genres.map((genre: string) => (
+          {/* {genres.map((genre: string) => (
             <Tab
               value={genre}
               key={genre}
               className={style.tab}
               label={genre}
             />
-          ))}
+          ))} */}
         </Tabs>
       </Box>
       <Box className={style.sortBy}>

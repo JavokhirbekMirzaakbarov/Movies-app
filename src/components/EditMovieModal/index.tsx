@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Movie } from "../../constants";
-import { genres } from "../../mockData";
 
 interface MovieProps {
   movie: Movie;
@@ -22,7 +21,7 @@ interface MovieProps {
 
 const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
   const [selectedGenres, setGenres] = useState<string[]>(
-    movie.genre.split(", ").map((genre) => genre.toLowerCase())
+    movie.genres.map((genre) => genre.toLowerCase())
   );
 
   const handleChange = (event: SelectChangeEvent<typeof selectedGenres>) => {
@@ -50,11 +49,11 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
           </Grid>
           <Grid item xs={6} md={4}>
             <InputLabel htmlFor="date">Release Date</InputLabel>
-            <Input value={movie.released} id="date" type="date" fullWidth />
+            <Input value={movie.release_date} id="date" type="date" fullWidth />
           </Grid>
           <Grid item xs={6} md={8}>
             <TextField
-              value={movie.website}
+              value={movie.overview}
               fullWidth
               label="Movie URL"
               variant="outlined"
@@ -62,7 +61,7 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
           </Grid>
           <Grid item xs={6} md={4}>
             <TextField
-              value={movie.imdbRating}
+              value={movie.vote_average}
               fullWidth
               label="Rating"
               variant="outlined"
@@ -79,12 +78,12 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
               <MenuItem disabled key={"edit-movie-genres"} value="">
                 <em>Genres</em>
               </MenuItem>
-              {genres.map((genre) => (
+              {/* {genres.map((genre) => (
                 <MenuItem key={genre} value={genre}>
                   <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
                   <ListItemText primary={genre} />
                 </MenuItem>
-              ))}
+              ))} */}
             </Select>
           </Grid>
           <Grid item xs={6} md={4}>
@@ -100,7 +99,7 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
               fullWidth
               multiline
               minRows={3}
-              value={movie.actors}
+              value={movie.budget}
               label="Overview"
               variant="outlined"
               placeholder="Movie Description"

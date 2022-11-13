@@ -17,25 +17,19 @@ interface MovieProps {
   movie: Movie;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  onClick: (id: string) => void;
 }
 
-const MovieCard: React.FC<MovieProps> = ({
-  movie,
-  onEdit,
-  onDelete,
-  onClick,
-}) => {
+const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
   const formatMovieLanguage = (language: string) =>
     language.slice(0, 3).toLocaleUpperCase();
 
   return (
-    <Card className={style.card} onClick={() => onClick(movie.imdbID)}>
+    <Card className={style.card}>
       <CardMedia
         component="img"
         alt="green iguana"
         height="280"
-        image={movie.poster}
+        image={movie.poster_path}
       />
       <CardContent>
         <Typography sx={{ color: "#f65261" }} gutterBottom variant="h5">
@@ -48,19 +42,17 @@ const MovieCard: React.FC<MovieProps> = ({
             alignItems: "center",
           }}
         >
-          <Typography variant="body2">{movie.released}</Typography>
-          <Typography sx={{ fontWeight: "bold" }}>
-            {formatMovieLanguage(movie.language)}
-          </Typography>
-          <Typography>{movie.imdbRating}</Typography>
+          <Typography variant="body2">{movie.release_date}</Typography>
+          <Typography sx={{ fontWeight: "bold" }}>{movie.overview}</Typography>
+          <Typography>{movie.vote_average}</Typography>
           <Typography>{movie.runtime}</Typography>
         </Box>
       </CardContent>
       <CardActions>
-        <Button onClick={() => onEdit(movie.imdbID)} size="small">
+        <Button size="small">
           <EditIcon />
         </Button>
-        <Button size="small" onClick={() => onDelete(movie.imdbID)}>
+        <Button size="small">
           <DeleteIcon />
         </Button>
       </CardActions>

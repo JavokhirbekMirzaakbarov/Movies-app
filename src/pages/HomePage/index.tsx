@@ -1,36 +1,46 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import FiltersTab from "../../components/FiltersTab";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import MoviesList from "../../components/MoviesList";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { Box } from "@mui/system";
-import { Modal } from "@mui/material";
+import { Modal, Button } from "@mui/material";
 import AddMovieModal from "../../components/AddMovieModal";
 import { Movie } from "../../constants";
 import Header from "../../components/Header";
 import MovieDetails from "../../components/MovieDetails";
+import { getMovies } from "../../store/thunks";
+import { store } from "../../store";
+import { useAppDispatch } from "../../hooks/hooks";
 import style from "./styles.module.scss";
-import { getAllMoviesService } from "../../services";
 
 const Home = () => {
   const [isOpen, setOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("");
   const [movies, setMovies] = useState<Movie[]>();
   const [sortByOption, setSortByOption] = useState("");
   const [toggle, setToggle] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({} as Movie);
+  const [offset, setOffset] = useState(0);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // sortByGenre();
-    getAllMoviesService();
-  }, [activeTab, sortByOption]);
+    dispatch(getMovies(offset));
+  }, [offset]);
 
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
+
+  const handleBack = () => {
+    setOffset(offset - 1);
+  };
+
+  const handleNext = () => {
+    setOffset(offset + 1);
+  };
 
   // const isMovieGenreActive = (movie: Movie) =>
   //   movie.genre.toLowerCase().includes(activeTab.toLowerCase());
@@ -82,15 +92,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Box className={style.main}>
-        {
-          <FiltersTab
-            setActiveTab={setActiveTab}
-            setSortByOption={setSortByOption}
-            value={activeTab}
-          />
-        }
-      </Box>
+      <Box className={style.main}>{<FiltersTab />}</Box>
       <Modal
         open={isOpen}
         onClose={handleClose}
@@ -104,6 +106,21 @@ const Home = () => {
       <ErrorBoundary>
         <MoviesList />
       </ErrorBoundary>
+      <Box sx={{ textAlign: "center" }}>
+        <Button
+          disabled={offset === 0}
+          onClick={handleBack}
+          sx={{ fontSize: "2em", fontWeight: "bold" }}
+        >
+          &lt;
+        </Button>
+        <Button
+          onClick={handleNext}
+          sx={{ fontSize: "2em", fontWeight: "bold" }}
+        >
+          &gt;
+        </Button>
+      </Box>
       <Footer />
     </div>
   );

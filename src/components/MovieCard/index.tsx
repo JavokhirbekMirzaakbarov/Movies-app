@@ -11,6 +11,7 @@ import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Movie } from "../../constants";
+import image from "./../../asset/images/no-image.png";
 import style from "./styles.module.scss";
 
 interface MovieProps {
@@ -20,8 +21,9 @@ interface MovieProps {
 }
 
 const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
-  const formatMovieLanguage = (language: string) =>
-    language.slice(0, 3).toLocaleUpperCase();
+  const onError = (e: any) => {
+    e.target.src = image;
+  };
 
   return (
     <Card className={style.card}>
@@ -29,6 +31,7 @@ const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
         component="img"
         alt="green iguana"
         height="280"
+        onError={onError}
         image={movie.poster_path}
       />
       <CardContent>
@@ -43,9 +46,13 @@ const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
           }}
         >
           <Typography variant="body2">{movie.release_date}</Typography>
-          <Typography sx={{ fontWeight: "bold" }}>{movie.overview}</Typography>
           <Typography>{movie.vote_average}</Typography>
           <Typography>{movie.runtime}</Typography>
+        </Box>
+        <Box>
+          <Typography>
+            {movie.genres.map((genre) => genre.toLowerCase()).join(",")}
+          </Typography>
         </Box>
       </CardContent>
       <CardActions>

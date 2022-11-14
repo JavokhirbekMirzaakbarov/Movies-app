@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Movie } from "../../constants";
 import MovieCard from "../MovieCard";
-import { Modal, Box } from "@mui/material";
+import { Modal, Box, Button } from "@mui/material";
 import EditMovieModal from "../EditMovieModal";
 import DeleteMovieModal from "../DeleteMovieModal";
+import { useAppSelector } from "../../hooks/hooks";
 import style from "./styles.module.scss";
+import { selectMovies } from "../../store/moviesSlice";
 
 const MoviesList: React.FC = () => {
   const [isEditOpen, setEditOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [movie, setMovie] = useState({} as Movie);
-  const movies = useSelector((state: any) => state.movies);
+  const movies = useAppSelector(selectMovies);
 
   const onEdit = (id: string) => {
     const movie = movies.find((movie: any) => movie.id === id);

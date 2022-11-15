@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -12,7 +13,7 @@ import {
   Checkbox,
   ListItemText,
 } from "@mui/material";
-import React, { useState } from "react";
+import { genres } from "../../constants";
 import { Movie } from "../../constants";
 
 interface MovieProps {
@@ -53,9 +54,9 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
           </Grid>
           <Grid item xs={6} md={8}>
             <TextField
-              value={movie.overview}
+              value={movie.revenue}
               fullWidth
-              label="Movie URL"
+              label="Revenue"
               variant="outlined"
             />
           </Grid>
@@ -78,12 +79,12 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
               <MenuItem disabled key={"edit-movie-genres"} value="">
                 <em>Genres</em>
               </MenuItem>
-              {/* {genres.map((genre) => (
+              {genres.map((genre) => (
                 <MenuItem key={genre} value={genre}>
                   <Checkbox checked={selectedGenres.indexOf(genre) > -1} />
                   <ListItemText primary={genre} />
                 </MenuItem>
-              ))} */}
+              ))}
             </Select>
           </Grid>
           <Grid item xs={6} md={4}>
@@ -99,7 +100,7 @@ const EditMovieModal: React.FC<MovieProps> = ({ movie }) => {
               fullWidth
               multiline
               minRows={3}
-              value={movie.budget}
+              value={movie.overview}
               label="Overview"
               variant="outlined"
               placeholder="Movie Description"

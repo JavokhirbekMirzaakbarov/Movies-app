@@ -18,11 +18,17 @@ interface MovieProps {
   movie: Movie;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  onClick: (id: string) => void;
 }
 
-const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
-  const onError = (e: any) => {
-    e.target.src = image;
+const MovieCard: React.FC<MovieProps> = ({
+  movie,
+  onEdit,
+  onDelete,
+  onClick,
+}) => {
+  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    (e.target as HTMLImageElement).src = image;
   };
 
   return (
@@ -34,7 +40,7 @@ const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
         onError={onError}
         image={movie.poster_path}
       />
-      <CardContent>
+      <CardContent onClick={() => onClick(movie.id)}>
         <Typography sx={{ color: "#f65261" }} gutterBottom variant="h5">
           {movie.title}
         </Typography>
@@ -46,7 +52,9 @@ const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
           }}
         >
           <Typography variant="body2">{movie.release_date}</Typography>
-          <Typography>{movie.vote_average}</Typography>
+          <Typography>
+            {movie.vote_average !== 0 && movie.vote_average}
+          </Typography>
           <Typography>{movie.runtime}</Typography>
         </Box>
         <Box>
@@ -56,10 +64,10 @@ const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete }) => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button size="small">
+        <Button onClick={() => onEdit(movie.id)} size="small">
           <EditIcon />
         </Button>
-        <Button size="small">
+        <Button onClick={() => onDelete(movie.id)} size="small">
           <DeleteIcon />
         </Button>
       </CardActions>

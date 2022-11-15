@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { Movie } from "../constants";
@@ -17,18 +18,9 @@ export const moviesSlice = createSlice({
     setMovies: (state, action: PayloadAction<any>) => {
       state.movies = action.payload;
     },
-    filterMoviesByGenre: (state, action: PayloadAction<string>) => {
-      state.movies = state.movies.filter((movie: Movie) =>
-        movie.genres
-          .map((genre) => genre.toLowerCase())
-          .join("")
-          .includes(action.payload.toLowerCase())
-      );
-      console.log(state.movies);
-    },
   },
 });
 
 export default moviesSlice.reducer;
-export const { setMovies, filterMoviesByGenre } = moviesSlice.actions;
+export const { setMovies } = moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.movies;

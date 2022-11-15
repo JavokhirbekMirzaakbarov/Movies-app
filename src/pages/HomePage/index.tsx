@@ -13,22 +13,23 @@ import { Movie } from "../../constants";
 import Header from "../../components/Header";
 import MovieDetails from "../../components/MovieDetails";
 import { getMovies } from "../../store/thunks";
-import { store } from "../../store";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { selectMovies } from "../../store/moviesSlice";
 import style from "./styles.module.scss";
 
 const Home = () => {
   const [isOpen, setOpen] = useState(false);
-  const [movies, setMovies] = useState<Movie[]>();
-  const [sortByOption, setSortByOption] = useState("");
+  const [sortByOption, setSortByOption] = useState("vote_average");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [toggle, setToggle] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({} as Movie);
   const [offset, setOffset] = useState(0);
   const dispatch = useAppDispatch();
+  const movies = useAppSelector(selectMovies);
 
   useEffect(() => {
-    dispatch(getMovies(offset));
-  }, [offset]);
+    dispatch(getMovies(offset, selectedGenre, sortByOption));
+  }, [offset, selectedGenre, sortByOption]);
 
   const handleOpen = () => setOpen(true);
 
@@ -42,46 +43,14 @@ const Home = () => {
     setOffset(offset + 1);
   };
 
-  // const isMovieGenreActive = (movie: Movie) =>
-  //   movie.genre.toLowerCase().includes(activeTab.toLowerCase());
-
-  // const sortByGenre = () => {
-  //   const sortedMovies = allMovies.filter((movie) => isMovieGenreActive(movie));
-  //   if (sortByOption === "release date") sortByDate(sortedMovies);
-  //   else if (sortByOption === "duration") sortByDuration(sortedMovies);
-  //   else sortByRating(sortedMovies);
-  // };
-
-  // const sortByRating = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(movies.sort((a, b) => +b.imdbRating - +a.imdbRating)),
-  //   [sortByOption]
-  // );
-
-  // const sortByDuration = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(
-  //       movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime))
-  //     ),
-  //   [sortByOption]
-  // );
-
-  // const sortByDate = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(
-  //       movies.sort((a, b) => +new Date(b.released) - +new Date(a.released))
-  //     ),
-  //   [sortByOption]
-  // );
-
-  // const onClick = (id: string) => {
-  //   const movie = movies.find((movie: Movie) => movie.imdbID === id);
-  //   if (movie) {
-  //     setSelectedMovie(movie);
-  //     setToggle(true);
-  //     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  //   }
-  // };
+  const onMovieClick = (id: string) => {
+    const movie = movies.find((movie) => movie.id === id);
+    if (movie) {
+      setSelectedMovie(movie);
+      setToggle(true);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className={style.home}>
@@ -92,7 +61,12 @@ const Home = () => {
         </div>
       </div>
 
-      <Box className={style.main}>{<FiltersTab />}</Box>
+      <Box className={style.main}>
+        <FiltersTab
+          setSelectedGenre={setSelectedGenre}
+          setSortByOption={setSortByOption}
+        />
+      </Box>
       <Modal
         open={isOpen}
         onClose={handleClose}
@@ -104,7 +78,7 @@ const Home = () => {
         </Box>
       </Modal>
       <ErrorBoundary>
-        <MoviesList />
+        <MoviesList onMovieClick={onMovieClick} />
       </ErrorBoundary>
       <Box sx={{ textAlign: "center" }}>
         <Button

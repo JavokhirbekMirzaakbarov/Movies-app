@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { genres } from "../../constants";
-import { useAppDispatch } from "../../hooks/hooks";
 import style from "./styles.module.scss";
-import { filterMoviesByGenre } from "../../store/moviesSlice";
 
-const sortByOptions = ["imdb rating", "release date", "duration"];
+const sortByOptions = ["IMDB rating", "release date", "duration"];
 
-const FiltersTab: React.FC = () => {
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const dispatch = useAppDispatch();
+interface FiltersTabProps {
+  setSelectedGenre: (genre: string) => void;
+  setSortByOption: (option: string) => void;
+}
 
-  const handleGenreChange = (event: React.SyntheticEvent, newValue: string) => {
-    setSelectedGenre(newValue);
-    dispatch(filterMoviesByGenre(newValue));
+const FiltersTab: React.FC<FiltersTabProps> = ({
+  setSelectedGenre,
+  setSortByOption,
+}) => {
+  const [genre, setGenre] = useState("");
+
+  const handleGenreChange = (event: React.SyntheticEvent, newGenre: string) => {
+    setSelectedGenre(newGenre);
+    setGenre(newGenre);
   };
 
   const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    // setSortByOption(event.target.value);
+    if (event.target.value === "release date") setSortByOption("release_date");
+    else if (event.target.value === "duration") setSortByOption("runtime");
+    else setSortByOption("vote_average");
   };
 
   return (
     <Box className={style.filters}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={selectedGenre} onChange={handleGenreChange}>
+        <Tabs value={genre} onChange={handleGenreChange}>
           {["all", ...genres].map((genre: string) => (
             <Tab
               value={genre === "all" ? "" : genre}

@@ -1,9 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
+import style from "./style.module.scss";
 
 const DeleteMovieModal = () => {
   return (
-    <Box>
+    <Box className={style.container}>
       <Typography id="edit-movie-modal-title" variant="h2">
         Delete Movie
       </Typography>

@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { Movie } from "../../constants";
 import MovieCard from "../MovieCard";
-import { Modal, Box, Button } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import EditMovieModal from "../EditMovieModal";
 import DeleteMovieModal from "../DeleteMovieModal";
 import { useAppSelector } from "../../hooks/hooks";
-import style from "./styles.module.scss";
 import { selectMovies } from "../../store/moviesSlice";
+import style from "./styles.module.scss";
 
-const MoviesList: React.FC = () => {
+interface MoviesListProps {
+  onMovieClick: (id: string) => void;
+}
+
+const MoviesList: React.FC<MoviesListProps> = ({ onMovieClick }) => {
   const [isEditOpen, setEditOpen] = useState(false);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [movie, setMovie] = useState({} as Movie);
   const movies = useAppSelector(selectMovies);
 
   const onEdit = (id: string) => {
-    const movie = movies.find((movie: any) => movie.id === id);
+    const movie = movies.find((movie) => movie.id === id);
     if (movie) {
       setEditOpen(true);
       setMovie(movie);
@@ -23,7 +27,7 @@ const MoviesList: React.FC = () => {
   };
 
   const onDelete = (id: string) => {
-    const movie = movies.find((movie: any) => movie.id === id);
+    const movie = movies.find((movie) => movie.id === id);
     if (movie) setDeleteOpen(true);
   };
 
@@ -35,11 +39,11 @@ const MoviesList: React.FC = () => {
   return (
     <>
       <div className={style.movies}>
-        {movies.map((movie: any) => (
+        {movies.map((movie) => (
           <MovieCard
             onDelete={onDelete}
             onEdit={onEdit}
-            // onClick={onClick}
+            onClick={onMovieClick}
             key={movie.id}
             movie={movie}
           />

@@ -27,7 +27,7 @@ const MovieCard: React.FC<MovieProps> = ({
   onDelete,
   onClick,
 }) => {
-  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const onError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     (e.target as HTMLImageElement).src = image;
   };
 

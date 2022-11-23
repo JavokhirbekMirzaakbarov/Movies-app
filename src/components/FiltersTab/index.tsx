@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { genres } from "../../constants";
+import { useAppDispatch } from "../../hooks/hooks";
+import {
+  filterByGenre,
+  sortByDate,
+  sortByDuration,
+  sortByRating,
+} from "../../store/moviesSlice";
 import style from "./styles.module.scss";
 
 const sortByOptions = ["IMDB rating", "release date", "duration"];
@@ -15,16 +22,25 @@ const FiltersTab: React.FC<FiltersTabProps> = ({
   setSortByOption,
 }) => {
   const [genre, setGenre] = useState("");
+  const dispatch = useAppDispatch();
 
   const handleGenreChange = (event: React.SyntheticEvent, newGenre: string) => {
     setSelectedGenre(newGenre);
     setGenre(newGenre);
+    dispatch(filterByGenre(newGenre));
   };
 
   const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "release date") setSortByOption("release_date");
-    else if (event.target.value === "duration") setSortByOption("runtime");
-    else setSortByOption("vote_average");
+    if (event.target.value === "release date") {
+      setSortByOption("release_date");
+      dispatch(sortByDate());
+    } else if (event.target.value === "duration") {
+      setSortByOption("runtime");
+      dispatch(sortByDuration());
+    } else {
+      setSortByOption("vote_average");
+      dispatch(sortByRating());
+    }
   };
 
   return (

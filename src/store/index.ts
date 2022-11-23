@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import moviesReducer from "./moviesSlice";
 import thunk, { ThunkDispatch } from "redux-thunk";
@@ -17,7 +16,13 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 type AppAction = ReturnType<typeof store.dispatch>;
 
-export type AppDispatch = ThunkDispatch<RootState, any, AppAction>;
+type ThunkArgs = {
+  offset?: number;
+  genre?: string;
+  sortBy?: string;
+};
+
+export type AppDispatch = ThunkDispatch<RootState, ThunkArgs, AppAction>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

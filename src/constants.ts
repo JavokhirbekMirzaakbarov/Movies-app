@@ -1,17 +1,17 @@
-export type Movie = {
+export interface Movie {
   id: string;
   title: string;
   tagline: string;
   vote_average: number;
   vote_count: number;
-  release_date: number;
+  release_date: string;
   genres: string[];
   poster_path: string;
   overview: string;
   budget: number;
   revenue: number;
   runtime: number;
-};
+}
 
 export type ButtonProps = {
   text: string;
@@ -19,4 +19,12 @@ export type ButtonProps = {
   onClick?: () => void;
 };
 
-export const genres = ["adventure", "action", "fantasy", "comedy", "romance"];
+export const genres = [
+  "adventure",
+  "action",
+  "fantasy",
+  "comedy",
+  "romance",
+  "drama",
+  "thriller",
+];

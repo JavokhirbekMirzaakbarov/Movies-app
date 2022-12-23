@@ -40,6 +40,17 @@ export const moviesSlice = createSlice({
           new Date(a.release_date).getTime()
       );
     },
+    editMovie: (state, action: PayloadAction<{ id: string; movie: Movie }>) => {
+      state.movies = [
+        ...state.movies.filter((movie) => movie.id !== action.payload.id),
+        action.payload.movie,
+      ];
+    },
+    deleteMovie: (state, action: PayloadAction<string>) => {
+      state.movies = state.movies.filter(
+        (movie) => movie.id !== action.payload
+      );
+    },
   },
 });
 
@@ -50,5 +61,7 @@ export const {
   sortByRating,
   sortByDate,
   sortByDuration,
+  editMovie,
+  deleteMovie,
 } = moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.movies;

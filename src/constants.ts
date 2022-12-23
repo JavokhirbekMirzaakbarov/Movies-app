@@ -19,6 +19,4 @@ export type ButtonProps = {
   onClick?: () => void;
 };
 
-export type State = {
-  movies: [];
-};
+export const genres = ["adventure", "action", "fantasy", "comedy", "romance"];

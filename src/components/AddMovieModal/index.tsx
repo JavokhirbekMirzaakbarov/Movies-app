@@ -13,6 +13,7 @@ import {
   Checkbox,
   ListItemText,
 } from "@mui/material";
+import { genres } from "../../constants";
 
 const AddMovieModal = () => {
   const [selectedGenres, setGenres] = useState<string[]>([]);
@@ -57,12 +58,12 @@ const AddMovieModal = () => {
               <MenuItem disabled key={"genres"} value="">
                 <em>Genres</em>
               </MenuItem>
-              {/* {genres.map((genre) => (
+              {genres.map((genre) => (
                 <MenuItem key={genre} value={genre}>
                   <Checkbox checked={selectedGenres.includes(genre)} />
                   <ListItemText primary={genre} />
                 </MenuItem>
-              ))} */}
+              ))}
             </Select>
           </Grid>
           <Grid item xs={6} md={4}>

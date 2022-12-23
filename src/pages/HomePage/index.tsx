@@ -1,77 +1,56 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import FiltersTab from "../../components/FiltersTab";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import MoviesList from "../../components/MoviesList";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import { Box } from "@mui/system";
-import { Modal } from "@mui/material";
+import { Modal, Button } from "@mui/material";
 import AddMovieModal from "../../components/AddMovieModal";
 import { Movie } from "../../constants";
 import Header from "../../components/Header";
 import MovieDetails from "../../components/MovieDetails";
+import { getMovies } from "../../store/thunks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { selectMovies } from "../../store/moviesSlice";
 import style from "./styles.module.scss";
-import { getAllMoviesService } from "../../services";
 
 const Home = () => {
   const [isOpen, setOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("");
-  const [movies, setMovies] = useState<Movie[]>();
-  const [sortByOption, setSortByOption] = useState("");
+  const [sortByOption, setSortByOption] = useState("vote_average");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [toggle, setToggle] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({} as Movie);
+  const [offset, setOffset] = useState(0);
+  const dispatch = useAppDispatch();
+  const movies = useAppSelector(selectMovies);
 
   useEffect(() => {
-    // sortByGenre();
-    getAllMoviesService();
-  }, [activeTab, sortByOption]);
+    dispatch(getMovies(offset, selectedGenre, sortByOption));
+  }, [offset, selectedGenre, sortByOption]);
 
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
 
-  // const isMovieGenreActive = (movie: Movie) =>
-  //   movie.genre.toLowerCase().includes(activeTab.toLowerCase());
+  const handleBack = () => {
+    setOffset(offset - 1);
+  };
 
-  // const sortByGenre = () => {
-  //   const sortedMovies = allMovies.filter((movie) => isMovieGenreActive(movie));
-  //   if (sortByOption === "release date") sortByDate(sortedMovies);
-  //   else if (sortByOption === "duration") sortByDuration(sortedMovies);
-  //   else sortByRating(sortedMovies);
-  // };
+  const handleNext = () => {
+    setOffset(offset + 1);
+  };
 
-  // const sortByRating = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(movies.sort((a, b) => +b.imdbRating - +a.imdbRating)),
-  //   [sortByOption]
-  // );
-
-  // const sortByDuration = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(
-  //       movies.sort((a, b) => parseInt(b.runtime) - parseInt(a.runtime))
-  //     ),
-  //   [sortByOption]
-  // );
-
-  // const sortByDate = useCallback(
-  //   (movies: Movie[]) =>
-  //     setMovies(
-  //       movies.sort((a, b) => +new Date(b.released) - +new Date(a.released))
-  //     ),
-  //   [sortByOption]
-  // );
-
-  // const onClick = (id: string) => {
-  //   const movie = movies.find((movie: Movie) => movie.imdbID === id);
-  //   if (movie) {
-  //     setSelectedMovie(movie);
-  //     setToggle(true);
-  //     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  //   }
-  // };
+  const onMovieClick = (id: string) => {
+    const movie = movies.find((movie) => movie.id === id);
+    if (movie) {
+      setSelectedMovie(movie);
+      setToggle(true);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className={style.home}>
@@ -83,13 +62,10 @@ const Home = () => {
       </div>
 
       <Box className={style.main}>
-        {
-          <FiltersTab
-            setActiveTab={setActiveTab}
-            setSortByOption={setSortByOption}
-            value={activeTab}
-          />
-        }
+        <FiltersTab
+          setSelectedGenre={setSelectedGenre}
+          setSortByOption={setSortByOption}
+        />
       </Box>
       <Modal
         open={isOpen}
@@ -102,8 +78,23 @@ const Home = () => {
         </Box>
       </Modal>
       <ErrorBoundary>
-        <MoviesList />
+        <MoviesList onMovieClick={onMovieClick} />
       </ErrorBoundary>
+      <Box sx={{ textAlign: "center" }}>
+        <Button
+          disabled={offset === 0}
+          onClick={handleBack}
+          sx={{ fontSize: "2em", fontWeight: "bold" }}
+        >
+          &lt;
+        </Button>
+        <Button
+          onClick={handleNext}
+          sx={{ fontSize: "2em", fontWeight: "bold" }}
+        >
+          &gt;
+        </Button>
+      </Box>
       <Footer />
     </div>
   );

@@ -1,40 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { genres } from "../../constants";
+import { useAppDispatch } from "../../hooks/hooks";
+import {
+  filterByGenre,
+  sortByDate,
+  sortByDuration,
+  sortByRating,
+} from "../../store/moviesSlice";
 import style from "./styles.module.scss";
 
-const sortByOptions = ["imdb rating", "release date", "duration"];
-interface FiltersProps {
-  setActiveTab: (value: string) => void;
-  value: string;
-  setSortByOption: (value: string) => void;
+const sortByOptions = ["IMDB rating", "release date", "duration"];
+
+interface FiltersTabProps {
+  setSelectedGenre: (genre: string) => void;
+  setSortByOption: (option: string) => void;
 }
 
-const FiltersTab: React.FC<FiltersProps> = ({
-  setActiveTab,
-  value,
+const FiltersTab: React.FC<FiltersTabProps> = ({
+  setSelectedGenre,
   setSortByOption,
 }) => {
-  const handleGenreChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
+  const [genre, setGenre] = useState("");
+  const dispatch = useAppDispatch();
+
+  const handleGenreChange = (event: React.SyntheticEvent, newGenre: string) => {
+    setSelectedGenre(newGenre);
+    setGenre(newGenre);
+    dispatch(filterByGenre(newGenre));
   };
 
   const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortByOption(event.target.value);
+    if (event.target.value === "release date") {
+      setSortByOption("release_date");
+      dispatch(sortByDate());
+    } else if (event.target.value === "duration") {
+      setSortByOption("runtime");
+      dispatch(sortByDuration());
+    } else {
+      setSortByOption("vote_average");
+      dispatch(sortByRating());
+    }
   };
 
   return (
     <Box className={style.filters}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleGenreChange}>
-          <Tab value="" className={style.tab} label="all" />
-          {/* {genres.map((genre: string) => (
+        <Tabs value={genre} onChange={handleGenreChange}>
+          {["all", ...genres].map((genre: string) => (
             <Tab
-              value={genre}
+              value={genre === "all" ? "" : genre}
               key={genre}
               className={style.tab}
               label={genre}
             />
-          ))} */}
+          ))}
         </Tabs>
       </Box>
       <Box className={style.sortBy}>

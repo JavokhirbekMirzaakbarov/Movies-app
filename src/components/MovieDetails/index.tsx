@@ -1,22 +1,33 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Movie } from "../../constants";
+import image from "./../../asset/images/no-image.png";
 import style from "./style.scss";
 
 const MovieDetails = ({ movie }: { movie: Movie }) => {
+  const onError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    (e.target as HTMLImageElement).src = image;
+  };
+
   return (
     <Stack className={style.container} direction="row">
       <Box>
-        <img className={style.poster} src={movie.poster_path} />
+        <img
+          onError={onError}
+          className={style.poster}
+          src={movie.poster_path}
+        />
       </Box>
       <Box padding="10px">
         <Box padding="10px">
           <Typography className={style.title} variant="h2">
             {movie.title}{" "}
-            <span className={style.circle}>{movie.vote_average}</span>
+            <span className={style.circle}>
+              {movie.vote_average === 0 ? "N/A" : movie.vote_average}
+            </span>
           </Typography>
           <Typography className={style.description} variant="subtitle1">
-            {movie.genres.join(",")}
+            {movie.genres.join(", ")}
           </Typography>
         </Box>
         <Box padding="10px">

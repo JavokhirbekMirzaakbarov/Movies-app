@@ -28,7 +28,10 @@ const MoviesList: React.FC<MoviesListProps> = ({ onMovieClick }) => {
 
   const onDelete = (id: string) => {
     const movie = movies.find((movie) => movie.id === id);
-    if (movie) setDeleteOpen(true);
+    if (movie) {
+      setMovie(movie);
+      setDeleteOpen(true);
+    }
   };
 
   const handleClose = (type: string) => {
@@ -66,7 +69,7 @@ const MoviesList: React.FC<MoviesListProps> = ({ onMovieClick }) => {
         aria-describedby="delete-movie-modal-description"
       >
         <Box className={style.deleteModal}>
-          <DeleteMovieModal />
+          <DeleteMovieModal movie={movie} />
         </Box>
       </Modal>
     </>

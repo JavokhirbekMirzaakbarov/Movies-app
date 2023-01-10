@@ -13,23 +13,49 @@ import { Movie } from "../../constants";
 import Header from "../../components/Header";
 import MovieDetails from "../../components/MovieDetails";
 import { getMovies } from "../../store/thunks";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector, useQuery } from "../../hooks/hooks";
 import { selectMovies } from "../../store/moviesSlice";
 import style from "./styles.module.scss";
+import { useParams } from "react-router";
+import { getMovieById } from "../../services";
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
+  const sortByQuery = useQuery().get("sortBy") || "";
+  const genreQuery = useQuery().get("genre") || "";
+  const movieQuery = useQuery().get("movie") || "";
   const [isOpen, setOpen] = useState(false);
-  const [sortByOption, setSortByOption] = useState("vote_average");
-  const [selectedGenre, setSelectedGenre] = useState("");
+  const [sortByOption, setSortByOption] = useState(sortByQuery);
+  const [selectedGenre, setSelectedGenre] = useState(genreQuery);
   const [toggle, setToggle] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState({} as Movie);
   const [offset, setOffset] = useState(0);
-  const dispatch = useAppDispatch();
   const movies = useAppSelector(selectMovies);
+  const { searchQuery } = useParams();
+  const dispatch = useAppDispatch();
+  const [, setParams] = useSearchParams();
 
   useEffect(() => {
-    dispatch(getMovies(offset, selectedGenre, sortByOption));
-  }, [offset, selectedGenre, sortByOption]);
+    dispatch(getMovies(offset, selectedGenre, sortByOption, searchQuery));
+  }, [offset, selectedGenre, sortByOption, searchQuery]);
+
+  useEffect(() => {
+    const fetchMovie = async (id: string) => {
+      const response = await getMovieById(id);
+
+      if (response.status === 200) {
+        setToggle(true);
+        setSelectedMovie(response.data);
+      } else {
+        alert("Movie Not found!");
+        setToggle(false);
+      }
+    };
+
+    if (movieQuery) {
+      fetchMovie(movieQuery);
+    }
+  }, [movieQuery]);
 
   const handleOpen = () => setOpen(true);
 
@@ -48,6 +74,7 @@ const Home = () => {
     if (movie) {
       setSelectedMovie(movie);
       setToggle(true);
+      setParams((prev) => ({ ...prev, movie: movie.id }));
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
   };
@@ -63,6 +90,7 @@ const Home = () => {
 
       <Box className={style.main}>
         <FiltersTab
+          sortByOption={sortByOption}
           setSelectedGenre={setSelectedGenre}
           setSortByOption={setSortByOption}
         />

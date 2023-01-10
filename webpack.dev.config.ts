@@ -46,6 +46,10 @@ const config: Configuration = {
         test: /\.png/,
         type: "asset/resource",
       },
+      {
+        test: /\.jpeg/,
+        type: "asset/resource",
+      },
     ],
   },
   resolve: {

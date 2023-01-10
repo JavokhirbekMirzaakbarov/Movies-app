@@ -2,7 +2,15 @@ import { Input } from "@mui/material";
 import React from "react";
 import style from "./styles.module.scss";
 
-const SearchBar = () => {
+interface SearchBarProps {
+  searchValue: string;
+  setSearchValue: (val: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({
+  searchValue,
+  setSearchValue,
+}) => {
   return (
     <Input
       className={style.searchBar}
@@ -11,6 +19,8 @@ const SearchBar = () => {
       autoFocus
       disableUnderline
       fullWidth
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
     />
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { genres } from "../../constants";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useQuery } from "../../hooks/hooks";
 import {
   filterByGenre,
   sortByDate,
@@ -9,32 +9,39 @@ import {
   sortByRating,
 } from "../../store/moviesSlice";
 import style from "./styles.module.scss";
+import { useSearchParams } from "react-router-dom";
 
-const sortByOptions = ["IMDB rating", "release date", "duration"];
+const sortByOptions = ["vote_average", "release_date", "runtime"];
 
 interface FiltersTabProps {
   setSelectedGenre: (genre: string) => void;
   setSortByOption: (option: string) => void;
+  sortByOption: string;
 }
 
 const FiltersTab: React.FC<FiltersTabProps> = ({
   setSelectedGenre,
   setSortByOption,
+  sortByOption,
 }) => {
-  const [genre, setGenre] = useState("");
+  const genreQuery = useQuery().get("genre") || "";
+  const [, setParams] = useSearchParams();
+  const [genre, setGenre] = useState(genreQuery);
   const dispatch = useAppDispatch();
 
   const handleGenreChange = (event: React.SyntheticEvent, newGenre: string) => {
+    setParams((prev) => ({ ...prev, genre: newGenre }));
     setSelectedGenre(newGenre);
     setGenre(newGenre);
     dispatch(filterByGenre(newGenre));
   };
 
   const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "release date") {
+    setParams((prev) => ({ ...prev, sortBy: event.target.value }));
+    if (event.target.value === "release_date") {
       setSortByOption("release_date");
       dispatch(sortByDate());
-    } else if (event.target.value === "duration") {
+    } else if (event.target.value === "runtime") {
       setSortByOption("runtime");
       dispatch(sortByDuration());
     } else {
@@ -61,7 +68,11 @@ const FiltersTab: React.FC<FiltersTabProps> = ({
         <Typography className={style.sortByText}>SORT BY</Typography>
         <select onChange={handleSortByChange} className={style.sortByOption}>
           {sortByOptions.map((option: string) => (
-            <option key={option} value={option}>
+            <option
+              selected={option === sortByOption}
+              key={option}
+              value={option}
+            >
               {option.toUpperCase()}
             </option>
           ))}

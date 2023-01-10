@@ -4,19 +4,26 @@ import Button from "@mui/material/Button";
 import Logo from "../Logo";
 import SearchIcon from "@mui/icons-material/Search";
 import style from "./styles.module.scss";
+import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   openModal: () => void;
   toggle: (a: boolean) => void;
 }
 const Navbar: React.FC<NavbarProps> = ({ openModal, toggle }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    toggle(false);
+    navigate("/");
+  };
+
   return (
     <Box className={style.navbar}>
       <Logo />
       <SearchIcon
         className={style.icon}
         fontSize="large"
-        onClick={() => toggle(false)}
+        onClick={handleClick}
       />
       <Button onClick={() => openModal()} className={style.button}>
         +ADD MOVIE

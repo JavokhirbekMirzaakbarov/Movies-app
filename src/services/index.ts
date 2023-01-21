@@ -14,6 +14,9 @@ export const getMoviesService = async ({
   return movies.data.data;
 };
 
+export const getMovieById = async (id: string) =>
+  await axios.get(`/movies/${id}`);
+
 export const addMovieService = async (movie: Omit<Movie, "id">) => {
   const response = await axios.post("/movies", movie);
 

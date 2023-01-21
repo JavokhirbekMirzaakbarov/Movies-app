@@ -1,8 +1,5 @@
 import path from "path";
-import {
-  Configuration as WebpackConfiguration,
-  HotModuleReplacementPlugin,
-} from "webpack";
+import { Configuration as WebpackConfiguration, HotModuleReplacementPlugin } from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -26,11 +23,7 @@ const config: Configuration = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
+            presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
           },
         },
       },

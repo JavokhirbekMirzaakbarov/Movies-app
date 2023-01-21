@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography, Box } from "@mui/material";
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,12 +13,7 @@ interface MovieProps {
   onClick: (id: string) => void;
 }
 
-const MovieCard: React.FC<MovieProps> = ({
-  movie,
-  onEdit,
-  onDelete,
-  onClick,
-}) => {
+const MovieCard: React.FC<MovieProps> = ({ movie, onEdit, onDelete, onClick }) => {
   const onError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     (e.target as HTMLImageElement).src = image;
   };
@@ -52,15 +39,11 @@ const MovieCard: React.FC<MovieProps> = ({
           }}
         >
           <Typography variant="body2">{movie.release_date}</Typography>
-          <Typography>
-            {movie.vote_average !== 0 && movie.vote_average}
-          </Typography>
+          <Typography>{movie.vote_average !== 0 && movie.vote_average}</Typography>
           <Typography>{movie.runtime}</Typography>
         </Box>
         <Box>
-          <Typography>
-            {movie.genres.map((genre) => genre.toLowerCase()).join(",")}
-          </Typography>
+          <Typography>{movie.genres.map((genre) => genre.toLowerCase()).join(",")}</Typography>
         </Box>
       </CardContent>
       <CardActions>

@@ -19,25 +19,18 @@ export const moviesSlice = createSlice({
     },
     filterByGenre: (state, action: PayloadAction<string>) => {
       state.movies = state.movies.filter((movie) =>
-        movie.genres
-          .join(",")
-          .toLowerCase()
-          .includes(action.payload.toLowerCase())
+        movie.genres.join(",").toLowerCase().includes(action.payload.toLowerCase())
       );
     },
     sortByRating: (state) => {
-      state.movies = state.movies.sort(
-        (a, b) => b.vote_average - a.vote_average
-      );
+      state.movies = state.movies.sort((a, b) => b.vote_average - a.vote_average);
     },
     sortByDuration: (state) => {
       state.movies = state.movies.sort((a, b) => b.runtime - a.runtime);
     },
     sortByDate: (state) => {
       state.movies = state.movies.sort(
-        (a, b) =>
-          new Date(b.release_date).getTime() -
-          new Date(a.release_date).getTime()
+        (a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
       );
     },
     editMovie: (state, action: PayloadAction<{ id: string; movie: Movie }>) => {
@@ -47,9 +40,7 @@ export const moviesSlice = createSlice({
       ];
     },
     deleteMovie: (state, action: PayloadAction<string>) => {
-      state.movies = state.movies.filter(
-        (movie) => movie.id !== action.payload
-      );
+      state.movies = state.movies.filter((movie) => movie.id !== action.payload);
     },
   },
 });

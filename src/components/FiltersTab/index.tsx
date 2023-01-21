@@ -10,6 +10,7 @@ import {
 } from "../../store/moviesSlice";
 import style from "./styles.module.scss";
 import { useSearchParams } from "react-router-dom";
+import { formatSortOption } from "../../helpers";
 
 const sortByOptions = ["vote_average", "release_date", "runtime"];
 
@@ -73,7 +74,7 @@ const FiltersTab: React.FC<FiltersTabProps> = ({
               key={option}
               value={option}
             >
-              {option.toUpperCase()}
+              {formatSortOption(option)}
             </option>
           ))}
         </select>

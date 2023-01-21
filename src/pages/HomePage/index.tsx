@@ -116,10 +116,7 @@ const Home = () => {
         >
           &lt;
         </Button>
-        <Button
-          onClick={handleNext}
-          sx={{ fontSize: "2em", fontWeight: "bold" }}
-        >
+        <Button onClick={handleNext} sx={{ fontSize: "2em", fontWeight: "bold" }}>
           &gt;
         </Button>
       </Box>

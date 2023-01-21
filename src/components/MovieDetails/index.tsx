@@ -12,11 +12,7 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
   return (
     <Stack className={style.container} direction="row">
       <Box>
-        <img
-          onError={onError}
-          className={style.poster}
-          src={movie.poster_path}
-        />
+        <img onError={onError} className={style.poster} src={movie.poster_path} />
       </Box>
       <Box padding="10px">
         <Box padding="10px">

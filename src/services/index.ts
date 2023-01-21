@@ -17,9 +17,10 @@ export const getMoviesService = async ({
 export const getMovieById = async (id: string) =>
   await axios.get(`/movies/${id}`);
 
-export const addMovieService = async (movie: Omit<Movie, "id">) => {
-  const response = await axios.post("/movies", movie);
-
+export const addMovieService = async (movie: Movie) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, ...rest } = movie;
+  const response = await axios.post("/movies", rest);
   return response.status;
 };
 

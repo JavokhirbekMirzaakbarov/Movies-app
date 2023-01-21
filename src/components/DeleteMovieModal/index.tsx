@@ -36,19 +36,12 @@ const DeleteMovieModal: React.FC<DeleteModalProps> = ({ movie }) => {
           Are you sure you want to delete this movie?
         </Typography>
         {snackbar.message && (
-          <Typography
-            sx={{ marginTop: "10px", color: snackbar.error ? "red" : "green" }}
-          >
+          <Typography sx={{ marginTop: "10px", color: snackbar.error ? "red" : "green" }}>
             {snackbar.message}
           </Typography>
         )}
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button
-            onClick={handleClick}
-            sx={{ margin: "10px" }}
-            size="large"
-            variant="contained"
-          >
+          <Button onClick={handleClick} sx={{ margin: "10px" }} size="large" variant="contained">
             Confirm
           </Button>
         </Box>

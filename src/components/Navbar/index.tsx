@@ -20,11 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ openModal, toggle }) => {
   return (
     <Box className={style.navbar}>
       <Logo />
-      <SearchIcon
-        className={style.icon}
-        fontSize="large"
-        onClick={handleClick}
-      />
+      <SearchIcon className={style.icon} fontSize="large" onClick={handleClick} />
       <Button onClick={() => openModal()} className={style.button}>
         +ADD MOVIE
       </Button>

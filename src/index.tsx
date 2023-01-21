@@ -8,9 +8,7 @@ import { store } from "./store";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <React.StrictMode>

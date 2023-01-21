@@ -20,10 +20,7 @@ const Header = () => {
         <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
         <div className={style.searchArea}>
           <Box sx={{ minWidth: "60%" }}>
-            <SearchBar
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-            />
+            <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
           </Box>
           <Button type="submit" className={style.searchButton}>
             SEARCH

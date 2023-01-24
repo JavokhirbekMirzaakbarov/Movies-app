@@ -26,23 +26,27 @@ const FiltersTab: React.FC<FiltersTabProps> = ({
   sortByOption,
 }) => {
   const genreQuery = useQuery().get("genre") || "";
-  const [, setParams] = useSearchParams();
+  const [searchParams, setParams] = useSearchParams();
   const [genre, setGenre] = useState(genreQuery);
   const dispatch = useAppDispatch();
 
   const handleGenreChange = (event: React.SyntheticEvent, newGenre: string) => {
-    setParams((prev) => ({ ...prev, genre: newGenre }));
+    searchParams.set("genre", newGenre);
+    setParams(searchParams);
     setSelectedGenre(newGenre);
     setGenre(newGenre);
     dispatch(filterByGenre(newGenre));
   };
 
-  const handleSortByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setParams((prev) => ({ ...prev, sortBy: event.target.value }));
-    if (event.target.value === "release_date") {
+  const handleSortByChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLSelectElement>) => {
+    searchParams.set("sortBy", value);
+    setParams(searchParams);
+    if (value === "release_date") {
       setSortByOption("release_date");
       dispatch(sortByDate());
-    } else if (event.target.value === "runtime") {
+    } else if (value === "runtime") {
       setSortByOption("runtime");
       dispatch(sortByDuration());
     } else {
@@ -67,13 +71,13 @@ const FiltersTab: React.FC<FiltersTabProps> = ({
       </Box>
       <Box className={style.sortBy}>
         <Typography className={style.sortByText}>SORT BY</Typography>
-        <select onChange={handleSortByChange} className={style.sortByOption}>
+        <select
+          defaultValue={sortByOption}
+          onChange={handleSortByChange}
+          className={style.sortByOption}
+        >
           {sortByOptions.map((option: string) => (
-            <option
-              selected={option === sortByOption}
-              key={option}
-              value={option}
-            >
+            <option key={option} value={option}>
               {formatSortOption(option)}
             </option>
           ))}

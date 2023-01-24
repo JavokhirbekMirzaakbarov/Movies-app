@@ -33,7 +33,7 @@ const Home = () => {
   const movies = useAppSelector(selectMovies);
   const { searchQuery } = useParams();
   const dispatch = useAppDispatch();
-  const [, setParams] = useSearchParams();
+  const [searchParams, setParams] = useSearchParams();
 
   useEffect(() => {
     dispatch(getMovies(offset, selectedGenre, sortByOption, searchQuery));
@@ -74,7 +74,8 @@ const Home = () => {
     if (movie) {
       setSelectedMovie(movie);
       setToggle(true);
-      setParams((prev) => ({ ...prev, movie: movie.id }));
+      searchParams.set("movie", movie.id);
+      setParams(searchParams);
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
   };
@@ -116,7 +117,10 @@ const Home = () => {
         >
           &lt;
         </Button>
-        <Button onClick={handleNext} sx={{ fontSize: "2em", fontWeight: "bold" }}>
+        <Button
+          onClick={handleNext}
+          sx={{ fontSize: "2em", fontWeight: "bold" }}
+        >
           &gt;
         </Button>
       </Box>

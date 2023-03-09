@@ -7,7 +7,10 @@ interface SearchBarProps {
   setSearchValue: (val: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchValue, setSearchValue }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  searchValue,
+  setSearchValue,
+}) => {
   return (
     <Input
       className={style.searchBar}

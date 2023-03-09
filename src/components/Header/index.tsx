@@ -17,12 +17,19 @@ const Header = () => {
   return (
     <>
       <form onSubmit={onFormSubmit}>
-        <h1 className={style.title}>FIND YOUR FAVOURITE MOVIE</h1>
-        <div className={style.searchArea}>
+        <h1 className={style.title}>Find your favourite movie</h1>
+        <div data-testid="search-form" className={style.searchArea}>
           <Box sx={{ minWidth: "60%" }}>
-            <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+            <SearchBar
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
           </Box>
-          <Button type="submit" className={style.searchButton}>
+          <Button
+            onClick={onFormSubmit}
+            type="submit"
+            className={style.searchButton}
+          >
             SEARCH
           </Button>
         </div>

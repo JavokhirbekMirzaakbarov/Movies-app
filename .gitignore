@@ -13,3 +13,7 @@
 .DS_Store
 .env
 npm-debug.log
+
+cypress/videos
+cypress/e2e/2-advanced-examples
+cypress/screenshots

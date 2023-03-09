@@ -41,7 +41,7 @@ const MoviesList: React.FC<MoviesListProps> = ({ onMovieClick }) => {
 
   return (
     <>
-      <div className={style.movies}>
+      <div data-testid="movie-list" className={style.movies}>
         {movies.map((movie) => (
           <MovieCard
             onDelete={onDelete}

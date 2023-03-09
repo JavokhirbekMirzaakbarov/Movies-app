@@ -41,7 +41,12 @@ const MovieCard: React.FC<MovieProps> = ({
         image={movie.poster_path}
       />
       <CardContent>
-        <Typography sx={{ color: "#f65261" }} gutterBottom variant="h5">
+        <Typography
+          data-testid="movie-title"
+          sx={{ color: "#f65261" }}
+          gutterBottom
+          variant="h5"
+        >
           {movie.title}
         </Typography>
         <Box

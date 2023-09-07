@@ -17,6 +17,7 @@ const MovieDetails = ({ movie }: { movie: Movie }) => {
     >
       <Box>
         <img
+          data-testid="image"
           onError={onError}
           className={style.poster}
           src={movie.poster_path}

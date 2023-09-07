@@ -32,7 +32,11 @@ const MovieCard: React.FC<MovieProps> = ({
   };
 
   return (
-    <Card className={style.card} onClick={() => onClick(movie.id)}>
+    <Card
+      data-testid="card"
+      className={style.card}
+      onClick={() => onClick(movie.id)}
+    >
       <CardMedia
         component="img"
         alt="green iguana"
@@ -69,10 +73,18 @@ const MovieCard: React.FC<MovieProps> = ({
         </Box>
       </CardContent>
       <CardActions>
-        <Button onClick={() => onEdit(movie.id)} size="small">
+        <Button
+          data-testid="edit-btn"
+          onClick={() => onEdit(movie.id)}
+          size="small"
+        >
           <EditIcon />
         </Button>
-        <Button onClick={() => onDelete(movie.id)} size="small">
+        <Button
+          data-testid="delete-btn"
+          onClick={() => onDelete(movie.id)}
+          size="small"
+        >
           <DeleteIcon />
         </Button>
       </CardActions>

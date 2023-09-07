@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.config.ts",
     "build": "webpack --config webpack.prod.config.ts",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:check-app": "tsc --noEmit --project \"./tsconfig.json\"",
     "test:check-cypress": "tsc --noEmit --project \"./cypress/tsconfig.json\"",
     "test:e2e": "cypress run --headed --config-file \"./cypress/config/cypress.config.ts\""
@@ -26,7 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.6.1",
+    "react-router-dom": "^6.15.0",
     "redux-thunk": "^2.4.2",
     "yup": "^0.32.11"
   },
